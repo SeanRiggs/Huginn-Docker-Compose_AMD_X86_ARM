@@ -74,3 +74,40 @@ image: mysql:latest
 image: yobasystems/alpine-mariadb:10.4.17-arm32v7
 #image: mysql:latest
 ```
+</br>
+
+# Bringing up with Docker-Compose
+
+![Docker Compose ](https://user-images.githubusercontent.com/111924572/188755814-af9ef5fd-9aa5-44a4-81dc-47bf7a1a5849.png)
+
+The downloaded and updated docker-compose.yaml file should ready to go in the directory you chose for it (i.e. huginn). The next step is to spin up your containers using docker-compose and starging the docker daemon:
+
+```bash
+docker-compose up -d
+```
+
+You should see the images download and containers create like the following: 
+![bringing up the docker-compose container](https://user-images.githubusercontent.com/111924572/188754670-9d5416b5-151c-43fb-9269-0c7955d1617b.jpg)
+
+list your docker containers and take a look: 
+
+```bash
+docker ps
+```
+
+![running containers](https://user-images.githubusercontent.com/111924572/188754917-7a040726-8e19-4aa3-9e31-4f2ffd858a1c.jpg)
+
+check your docker network:
+
+```bash
+docker network ls
+```
+
+![docker network ls](https://user-images.githubusercontent.com/111924572/188755073-3401ff3d-4157-4f22-b882-2c704eebe8b1.jpg)
+
+
+
+
+
+
+
