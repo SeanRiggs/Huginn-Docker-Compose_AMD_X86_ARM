@@ -3,6 +3,12 @@ Compiled huginn docker run command converted into docker-compose.yml file. Inclu
 
 # Getting Started
 
+You can either clone the repository or copy the file and follow the instructions below.
+
+```bash
+git clone https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM.git
+```
+
 make a directory you want to install your docker-compose contaners.
 
 ```bash
