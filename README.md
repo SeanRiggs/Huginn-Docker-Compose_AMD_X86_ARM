@@ -27,6 +27,6 @@ once copied, open the yaml file with nano
 ```bash
 sudo nano docker-compose.yml
 ```
-![docker-compose example](https://user-images.githubusercontent.com/111924572/188748919-8f59c65f-0f1a-42bf-9849-7e37e5d448a9.jpg)
+![docker-compose example](https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM/blob/main/images/docker-compose%20example.jpg)
 
 
