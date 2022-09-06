@@ -7,11 +7,18 @@ You can either clone the repository or copy the file and follow the instructions
 
 <strong>1st Option: git clone process:</strong>
 
-it will download it into its own folder. Do not run docker-compose up -d in this folder, it looks messy. Either rename the folder to huginn or move the file to newly created huginn folder.
+it will download it into its own folder. Do not run docker-compose up -d in this folder, it looks messy. Either rename the folder to huginn or move the file to newly created huginn folder.This process will snag the readme and any other file adds in the repo.
 
 ```bash
 git clone https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM.git
 ```
+
+<b><i>Recommended:</i></b> Or move to the directory you want to install huginn in and use <b>wget</b> to pull the single docker-compose file:
+
+```bash
+wget https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM/blob/main/docker-compose.yaml
+```
+
 </br>
 <strong>2nd Option: download the file and copy into new directory:</strong>
 
