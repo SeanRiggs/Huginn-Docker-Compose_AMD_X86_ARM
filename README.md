@@ -22,11 +22,6 @@ cd huginn
 ```
 
 copy docker-compose.yaml into the directory
-
-```bash
-copy code or pic
-```
-
 once copied, open the yaml file with nano
 
 ```bash
