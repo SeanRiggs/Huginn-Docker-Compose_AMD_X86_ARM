@@ -112,9 +112,15 @@ docker network ls
 
 ![docker network ls](https://user-images.githubusercontent.com/111924572/188755073-3401ff3d-4157-4f22-b882-2c704eebe8b1.jpg)
 
+# Having Some Trouble? See the FAQ
 
-
-
-
+https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM/blob/main/FAQ.md
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+![Huginn small art](https://user-images.githubusercontent.com/111924572/188938817-6fa7d75f-948d-4f40-9706-df0bff4b1529.jpg)
 
 
