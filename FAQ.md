@@ -28,4 +28,4 @@ No problem, just edit the compose file and remove the network variables from bot
 <b>5. You are using .yaml instead of .yml why? and is this a mistake?</b>
 </br>
 </br>
-Either extension will work. yaml stands for "yet another markup language". I just use the 4 character extension. Many people are used to the standard 3 character extension. Feel free to change the extension if you would like. It will not break anything.
+Either extension will work. yaml stands for "yet another markup language". I just use the 4 character extension. Many people use the standard 3 character extension. Feel free to change the extension if you would like. It will not break anything.
