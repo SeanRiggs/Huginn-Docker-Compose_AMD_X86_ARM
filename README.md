@@ -1,5 +1,5 @@
 # Huginn-Docker-Compose_AMD_X86_ARM
-Compiled huginn docker run command converted into docker-compose.yml file. Includes images for both ARM/aarch64 and x86 Linux/AMD infrastructure. Compose file also includes separate container for MySQL database and separate docker network. This also includes persistant volumes so data is not lost on container recreation. Options will allow you to run on any physical linux maching (including RaspberryPi) and virtual Machines. Tested on Debian and Ubuntu.
+Compiled huginn docker run command converted into docker-compose.yml file. Includes images for both ARM/aarch64 and x86 Linux/AMD infrastructure. Compose file also includes separate container for MySQL database and separate docker network. This also includes persistant volumes so data is not lost on container recreation. Options will allow you to run on any physical linux machine (including RaspberryPi) and virtual Machines. Tested on Debian and Ubuntu.
 
 # Getting Started
 
@@ -38,7 +38,7 @@ copy docker-compose.yaml into the directory
 once copied, open the yaml file with nano
 
 ```bash
-sudo nano docker-compose.yml
+sudo nano docker-compose.ymal
 ```
 <p align="center"><img src="https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM/blob/main/images/docker-compose%20example.jpg"</p>
 
