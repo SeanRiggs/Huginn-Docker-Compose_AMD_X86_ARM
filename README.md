@@ -67,7 +67,7 @@ copy docker-compose.yaml into the directory
 once copied, open the yaml file with nano
 
 ```bash
-sudo nano docker-compose.ymal
+sudo nano docker-compose.yaml
 ```
 <p align="center"><img src="https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM/blob/main/images/docker-compose%20example.jpg"</p>
 
