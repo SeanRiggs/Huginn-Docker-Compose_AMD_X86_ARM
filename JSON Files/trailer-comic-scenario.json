@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "name": "Trailer Comic Scenario",
+  "description": "This scenario has a few agents to get you started. Modified to remove outdated weather agents",
+  "source_url": false,
+  "guid": "ee4299225e6531c401a8bbbce0771ce4",
+  "tag_fg_color": "#ffffff",
+  "tag_bg_color": "#5bc0de",
+  "icon": "video-camera",
+  "exported_at": "2022-09-16T23:16:40Z",
+  "agents": [
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "XKCD Source",
+      "disabled": false,
+      "guid": "505c9bba65507c40e5786afff36f688c",
+      "options": {
+        "url": "https://xkcd.com",
+        "mode": "on_change",
+        "expected_update_period_in_days": 5,
+        "extract": {
+          "url": {
+            "css": "#comic img",
+            "value": "@src"
+          },
+          "title": {
+            "css": "#comic img",
+            "value": "@alt"
+          },
+          "hovertext": {
+            "css": "#comic img",
+            "value": "@title"
+          }
+        }
+      },
+      "schedule": "7am",
+      "keep_events_for": 1209600,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::EmailDigestAgent",
+      "name": "Trailer Comic Email",
+      "disabled": false,
+      "guid": "65e8ae4533881537de3c346b5178b75d",
+      "options": {
+        "subject": "Your Movie Trailer Update",
+        "expected_receive_period_in_days": "7"
+      },
+      "schedule": "5pm",
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::EventFormattingAgent",
+      "name": "Comic Formatter",
+      "disabled": false,
+      "guid": "d86b069650edadfc61db9df767c8b65c",
+      "options": {
+        "instructions": {
+          "message": "<h2>{{title}}</h2><img src=\"https:{{url}}\"/> <p>{{hovertext}}</p>"
+        },
+        "matchers": [
+
+        ],
+        "mode": "clean"
+      },
+      "keep_events_for": 1209600,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "iTunes Trailer Source",
+      "disabled": false,
+      "guid": "e9afa65457d0a736b9ec20a8dd452fc8",
+      "options": {
+        "url": "https://trailers.apple.com/trailers/home/rss/newtrailers.rss",
+        "mode": "on_change",
+        "type": "xml",
+        "expected_update_period_in_days": 5,
+        "extract": {
+          "title": {
+            "css": "item title",
+            "value": "string(.)"
+          },
+          "url": {
+            "css": "item link",
+            "value": "string(.)"
+          }
+        }
+      },
+      "schedule": "7am",
+      "keep_events_for": 1209600,
+      "propagate_immediately": false
+    }
+  ],
+  "links": [
+    {
+      "source": 0,
+      "receiver": 2
+    },
+    {
+      "source": 2,
+      "receiver": 1
+    },
+    {
+      "source": 3,
+      "receiver": 1
+    }
+  ],
+  "control_links": [
+
+  ]
+}

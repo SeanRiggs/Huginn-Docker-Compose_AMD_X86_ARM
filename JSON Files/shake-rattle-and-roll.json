@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "name": "Shake, Rattle, and Roll",
+  "description": "Agent network that monitors the USGS' Earthquake Hazards API server (http://earthquake.usgs.gov/earthquakes/feed/v1.0/) for human-detectible earthquakes.",
+  "source_url": false,
+  "guid": "4888e9b976e2b45919289bf62a5fb818",
+  "tag_fg_color": "#ffffff",
+  "tag_bg_color": "#af5add",
+  "icon": "globe",
+  "exported_at": "2022-09-16T23:16:13Z",
+  "agents": [
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Shake, Rattle, and Roll - Morrison, CO",
+      "disabled": false,
+      "guid": "2d66d26d2d0b6b6406deace2ae85b82e",
+      "options": {
+        "expected_update_period_in_days": "3650",
+        "url": "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=39.653599&longitude=-105.191101&maxradiuskm=50&limit=1&format=geojson&eventtype=earthquake&minmagnitude=4.0",
+        "type": "json",
+        "mode": "on_change",
+        "user_agent": "Exocortex v0.1.0 Earthquake API Bot (details: https://github.com/cantino/huginn)",
+        "extract": {
+          "magnitude": {
+            "path": "features[*].properties.mag"
+          },
+          "location": {
+            "path": "features[*].properties.place"
+          },
+          "url": {
+            "path": "features[*].properties.url"
+          },
+          "latitude": {
+            "path": "features[*].geometry.coordinates.[0]"
+          },
+          "longitude": {
+            "path": "features[*].geometry.coordinates.[1]"
+          },
+          "depth": {
+            "path": "features[*].geometry.coordinates.[2]"
+          }
+        }
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 604800,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Shake, Rattle, and Roll - Hawaii",
+      "disabled": false,
+      "guid": "426334cb1ef21b2ae8be5dfb30ccd988",
+      "options": {
+        "expected_update_period_in_days": "3650",
+        "url": "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=19.8968&longitude=-155.844437&maxradiuskm=300&limit=1&format=geojson&eventtype=earthquake&minmagnitude=4.0",
+        "type": "json",
+        "mode": "on_change",
+        "user_agent": "Exocortex v0.1.0 Earthquake API Bot (details: https://github.com/cantino/huginn)",
+        "extract": {
+          "magnitude": {
+            "path": "features[*].properties.mag"
+          },
+          "location": {
+            "path": "features[*].properties.place"
+          },
+          "url": {
+            "path": "features[*].properties.url"
+          },
+          "latitude": {
+            "path": "features[*].geometry.coordinates.[0]"
+          },
+          "longitude": {
+            "path": "features[*].geometry.coordinates.[1]"
+          },
+          "depth": {
+            "path": "features[*].geometry.coordinates.[2]"
+          }
+        }
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 604800,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::EventFormattingAgent",
+      "name": "Shake, Rattle, and Roll - Create XMPP-compatible messages out of USGS earthquake events",
+      "disabled": false,
+      "guid": "542894ccd4319aef19a3ffe1c6cb938e",
+      "options": {
+        "instructions": {
+          "created_at": "{{ created_at }}",
+          "message": "Incoming message from Shake, Rattle, and Roll - earthquake detected in {{ location }}!",
+          "earthquake": "Magnitude {{ magnitude }} seismic event at latitude {{ latitude }}, longitude {{ longitude }}, depth {{ depth }} km.  The event has a page on the USGS Earthquake Hazards page here: {{ url }}"
+        },
+        "matchers": [
+
+        ],
+        "mode": "clean"
+      },
+      "keep_events_for": 1209600,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Shake, Rattle, and Roll - Seoul, Korea",
+      "disabled": false,
+      "guid": "62d82d39882745975f166bef4f0387c6",
+      "options": {
+        "expected_update_period_in_days": "3650",
+        "url": "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=37.532600&longitude=127.024612&maxradiuskm=300&limit=1&eventtype=earthquake&minmagnitude=4.0",
+        "type": "json",
+        "mode": "on_change",
+        "user_agent": "Exocortex v0.1.0 Earthquake API Bot (details: https://github.com/cantino/huginn)",
+        "extract": {
+          "magnitude": {
+            "path": "features[*].properties.mag"
+          },
+          "location": {
+            "path": "features[*].properties.place"
+          },
+          "url": {
+            "path": "features[*].properties.url"
+          },
+          "latitude": {
+            "path": "features[*].geometry.coordinates.[0]"
+          },
+          "longitude": {
+            "path": "features[*].geometry.coordinates.[1]"
+          },
+          "depth": {
+            "path": "features[*].geometry.coordinates.[2]"
+          }
+        }
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 604800,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Shake, Rattle, and Roll - Tokyo, Japan",
+      "disabled": false,
+      "guid": "85dd4a77e9100d31787f8356b7af0415",
+      "options": {
+        "expected_update_period_in_days": "365",
+        "url": "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=35.652832&longitude=139.839478&maxradiuskm=500&limit=1&eventtype=earthquake&minmagnitude=4.0",
+        "type": "json",
+        "mode": "on_change",
+        "user_agent": "Exocortex v0.1.0 Earthquake API Bot (details: https://github.com/cantino/huginn)",
+        "extract": {
+          "magnitude": {
+            "path": "features[*].properties.mag"
+          },
+          "location": {
+            "path": "features[*].properties.place"
+          },
+          "url": {
+            "path": "features[*].properties.url"
+          },
+          "latitude": {
+            "path": "features[*].geometry.coordinates.[0]"
+          },
+          "longitude": {
+            "path": "features[*].geometry.coordinates.[1]"
+          },
+          "depth": {
+            "path": "features[*].geometry.coordinates.[2]"
+          }
+        }
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 604800,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::EmailAgent",
+      "name": "Shake, Rattle, and Roll - Contact everybody!",
+      "disabled": false,
+      "guid": "afa6593af0e9e798e2e7826b4dde2825",
+      "options": {
+        "subject": "Seismic event detected!",
+        "expected_receive_period_in_days": "3650",
+        "recipients": [
+          "seanandsherryriggs@gmail.com",
+          "sean.riggs@lumen.com",
+          "sandsriggs@msn.com"
+        ]
+      },
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::ManualEventAgent",
+      "name": "Shake, Rattle, and Roll - Inject test events",
+      "disabled": false,
+      "guid": "ea25dee8aea6592f17efe8a4e4ed1e1e",
+      "options": {
+        "no options": "are needed"
+      },
+      "keep_events_for": 3600
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "Shake, Rattle, and Roll - Alaska",
+      "disabled": false,
+      "guid": "eb1e2b2a2ebc8ab946a16ef8b0207c6f",
+      "options": {
+        "expected_update_period_in_days": "365",
+        "url": "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=64.2008&longitude=-149.4937&maxradiuskm=500&limit=1&eventtype=earthquake&minmagnitude=4.0",
+        "type": "json",
+        "mode": "on_change",
+        "user_agent": "Exocortex v0.1.0 Earthquake API Bot (details: https://github.com/cantino/huginn)",
+        "extract": {
+          "magnitude": {
+            "path": "features[*].properties.mag"
+          },
+          "location": {
+            "path": "features[*].properties.place"
+          },
+          "url": {
+            "path": "features[*].properties.url"
+          },
+          "latitude": {
+            "path": "features[*].geometry.coordinates.[0]"
+          },
+          "longitude": {
+            "path": "features[*].geometry.coordinates.[1]"
+          },
+          "depth": {
+            "path": "features[*].geometry.coordinates.[2]"
+          }
+        }
+      },
+      "schedule": "every_5m",
+      "keep_events_for": 604800,
+      "propagate_immediately": false
+    }
+  ],
+  "links": [
+    {
+      "source": 0,
+      "receiver": 2
+    },
+    {
+      "source": 1,
+      "receiver": 2
+    },
+    {
+      "source": 2,
+      "receiver": 5
+    },
+    {
+      "source": 3,
+      "receiver": 2
+    },
+    {
+      "source": 4,
+      "receiver": 2
+    },
+    {
+      "source": 6,
+      "receiver": 2
+    },
+    {
+      "source": 7,
+      "receiver": 2
+    }
+  ],
+  "control_links": [
+
+  ]
+}

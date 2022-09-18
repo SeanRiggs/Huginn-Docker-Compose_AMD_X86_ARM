@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "name": "Twitter Stream Update",
+  "description": "Sending alerts about the world; basically, your Huginn will be able to answer arbitrary requests like “Tell me when the date of the next Superbowl is announced”, “Tell me when we discover gravity waves”, or “Tell me when there is a tsunami headed toward San Francisco”.\r\n\r\nProblem: I often think of events that I’d like to be alerted of, but frequently miss them in the news.\r\nSolution: Let Huginn watch the news (via Twitter) and alert you when there are spikes of interest around topics that you care about.\r\n\r\nAdapted from Andrew Cantino: https://blog.andrewcantino.com/blog/2014/03/17/know-when-the-world-changes-with-huginn/",
+  "source_url": false,
+  "guid": "410d92d094a2e6488d887e6aa5f084f3",
+  "tag_fg_color": "#ffffff",
+  "tag_bg_color": "#5add63",
+  "icon": "leaf",
+  "exported_at": "2022-09-16T23:16:52Z",
+  "agents": [
+    {
+      "type": "Agents::EmailAgent",
+      "name": "Email Me Keyword Peaks from Twitter",
+      "disabled": false,
+      "guid": "6ceb351e3ee8e36148f834ee089c86f3",
+      "options": {
+        "subject": "This Keyword is getting Tweeted a Bunch right now!",
+        "body": "{{ message }}",
+        "expected_receive_period_in_days": "7"
+      },
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::TwitterStreamAgent",
+      "name": "Twitter Stream Agent Keyword Search",
+      "disabled": false,
+      "guid": "717d1a48795341c1ae2c93f06f9d5ab7",
+      "options": {
+        "filters": [
+          "K-Pop",
+          "second amendment",
+          "natural disaster",
+          "outbreak",
+          "Ukraine War",
+          "huginn open source",
+          "Colorado Air National Guard",
+          "Space X",
+          "Hunter Biden",
+          "Raspberry Pi",
+          "Lumen Technologies"
+        ],
+        "expected_update_period_in_days": "2",
+        "generate": "counts"
+      },
+      "schedule": "every_30m",
+      "keep_events_for": 604800
+    },
+    {
+      "type": "Agents::EventFormattingAgent",
+      "name": "Peak Format Clean up",
+      "disabled": false,
+      "guid": "d39cba54cb310c303f505c03ee4d5f1d",
+      "options": {
+        "instructions": {
+          "message": "Peak of {{peak}} found in {{grouped_by}} - https://twitter.com/search?q={{grouped_by}}"
+        },
+        "mode": "clean",
+        "skip_agent": "true",
+        "skip_created_at": "true"
+      },
+      "keep_events_for": 1209600,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::PeakDetectorAgent",
+      "name": "Keyword Peak Detector Agen",
+      "disabled": false,
+      "guid": "f1cc24ad641b8888c09b511f1d90e37a",
+      "options": {
+        "expected_receive_period_in_days": "2",
+        "group_by_path": "filter",
+        "value_path": "count",
+        "message": "A peak of {{count}} was found in {{filter}}",
+        "min_events": "4",
+        "std_multiple": "5"
+      },
+      "keep_events_for": 1209600,
+      "propagate_immediately": false
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "receiver": 3
+    },
+    {
+      "source": 2,
+      "receiver": 0
+    },
+    {
+      "source": 3,
+      "receiver": 2
+    }
+  ],
+  "control_links": [
+
+  ]
+}
