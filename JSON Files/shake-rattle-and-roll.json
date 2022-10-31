@@ -181,9 +181,9 @@
         "subject": "Seismic event detected!",
         "expected_receive_period_in_days": "3650",
         "recipients": [
-          "seanandsherryriggs@gmail.com",
-          "sean.riggs@lumen.com",
-          "sandsriggs@msn.com"
+          "Test@gmail.com",
+          "TEST@Earth.com",
+          "TEST@msn.com"
         ]
       },
       "propagate_immediately": false
