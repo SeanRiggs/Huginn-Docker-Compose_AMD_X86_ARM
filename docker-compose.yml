@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  huginn:
+    container_name: huginn
+    #image: mjysci/huginn:arm32v7 
+    #Use image for what you have Mjysci is for arm/aarch64. use huginn/huginn for AMD/linux x86 
+    image: huginn/huginn
+    depends_on:
+      - mysql
+    ports:
+      - "3000:3000" #keep inernal port mapped to 3000, you can map external port anywhere you want
+    volumes:
+      - "./data:/var/lib/MySQL"
+      - "./huginn:/app/huginn"
+
+    #maps container volume to local directory called data in directory this compose file is saved in
+    restart: "on-failure:5"
+    links:
+      - mysql
+    networks:
+    #you do not have to specify a network. I wanted to create a seperate "huginn" network ... just because
+      huginn:
+        ipv4_address: 192.168.92.21
+
+  mysql:
+    container_name: mysql
+    #image: yobasystems/alpine-mariadb:10.4.17-arm32v7
+    image: mysql:latest
+    # Comment out the image you do not want to use. mysql:lates is for AMD or x84 linux
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - "./database:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: huginn #change this or use .env file for security
+      MYSQL_PASSWORD: huginn #Change this default PW
+      MYSQL_DATABASE: huginn
+      MYSQL_USER: huginn
+    networks:
+      huginn:
+        ipv4_address: 192.168.92.20
+
+#you do not need to specify a network. it will be created on default in docker if you dont
+networks:
+  huginn:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.92.0/24"
+
+volumes:
+  data:
+  database:
+  huginn:
