@@ -141,6 +141,38 @@ docker network ls
 
 ![docker network ls](https://user-images.githubusercontent.com/111924572/188755073-3401ff3d-4157-4f22-b882-2c704eebe8b1.jpg)
 
+# Consider Extra Security by Adding an .env file to protect passwords for your databases
+
+create a .env file for the Docker Compose file you provided, you can create a new file called .env in the same directory as the Docker Compose file and add the following contents:
+</br>
+```bash
+HUGINN_ROOT_PASSWORD=your_huginn_root_password
+HUGINN_PASSWORD=your_huginn_password
+HUGINN_DATABASE=your_huginn_database
+HUGINN_USER=your_huginn_user
+```
+</br>
+Then, in the Docker Compose file, you can reference the environment variables in the environment field of the huginn and mysql services like so:
+
+```bash
+huginn:
+# other service configuration
+environment:
+HUGINN_ROOT_PASSWORD: ${HUGINN_ROOT_PASSWORD}
+HUGINN_PASSWORD: ${HUGINN_PASSWORD}
+HUGINN_DATABASE: ${HUGINN_DATABASE}
+HUGINN_USER: ${HUGINN_USER}
+mysql:
+# other service configuration
+environment:
+MYSQL_ROOT_PASSWORD: ${HUGINN_ROOT_PASSWORD}
+MYSQL_PASSWORD: ${HUGINN_PASSWORD}
+MYSQL_DATABASE: ${HUGINN_DATABASE}
+MYSQL_USER: ${HUGINN_USER}
+```
+</br>
+This will allow you to store sensitive information such as passwords and secrets in the .env file, rather than hardcoding them in the Docker Compose file. The .env file should not be committed to version control, as it may contain sensitive information.
+
 # Having Some Trouble? See the FAQ
 
 https://github.com/SeanRiggs/Huginn-Docker-Compose_AMD_X86_ARM/blob/main/FAQ.md
