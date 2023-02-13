@@ -13,6 +13,8 @@ services:
     volumes:
       - "./data:/var/lib/MySQL" 
     #maps container volume to local directory called data in directory this compose file is saved in
+      - "./huginn:/app/huginn"
+      This will create a new volume called huginn that is stored in a local directory called huginn (relative to the location of the Docker Compose file) and is mounted to the /app/huginn directory in the huginn container.
     restart: "on-failure:5"
     links:
       - mysql
@@ -50,3 +52,4 @@ networks:
 volumes:
   data:
   database:
+  huginn:
