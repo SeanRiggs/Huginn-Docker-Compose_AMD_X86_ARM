@@ -14,7 +14,7 @@ services:
       - "./data:/var/lib/MySQL" 
     #maps container volume to local directory called data in directory this compose file is saved in
       - "./huginn:/app/huginn"
-      This will create a new volume called huginn that is stored in a local directory called huginn (relative to the location of the Docker Compose file) and is mounted to the /app/huginn directory in the huginn container.
+    #This will create a new volume called huginn that is stored in a local directory called huginn (relative to the location of the Docker Compose file) and is mounted to the /app/huginn directory in the huginn container.
     restart: "on-failure:5"
     links:
       - mysql
@@ -27,7 +27,7 @@ services:
     container_name: mysql
     #image: yobasystems/alpine-mariadb:10.4.17-arm32v7
     image: mysql:latest
-    # Comment out the image you do not want to use. mysql:lates is for AMD or x84 linux
+    #Comment out the image you do not want to use. mysql:lates is for AMD or x84 linux
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     volumes:
