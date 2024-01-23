@@ -5,7 +5,7 @@ services:
     container_name: huginn
     #image: mjysci/huginn:arm32v7 
     #Use image for what you have Mjysci is for arm/aarch64. use huginn/huginn for AMD/linux x86 
-    image: huginn/huginn
+    image: ghcr.io/huginn/huginn
     depends_on:
       - mysql
     ports:
