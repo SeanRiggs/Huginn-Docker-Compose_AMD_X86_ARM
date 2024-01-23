@@ -1,6 +1,7 @@
 # Huginn-Docker-Compose_AMD_X86_ARM
 Compiled huginn docker run command converted into docker-compose.yaml file. Includes images for both ARM/aarch64 and x86 Linux/AMD infrastructure. Compose file also includes separate container for MySQL database and separate docker network. This also includes persistant volumes so data is not lost on container recreation. Options will allow you to run on any physical linux machine (including RaspberryPi) and virtual Machines. Tested on Debian and Ubuntu.
-
+</br>
+#### Update to show new repo for AMD_x86: ghcr.io/huginn/huginn
 <table>
 <tr>
 <th>Architecture</th>
@@ -83,14 +84,14 @@ The compose file is preset for AMD - x86 Linux. Adjust for ARM/aarch64. Validate
 
 ```bash
 #image: mjysci/huginn:arm32v7 
-image: huginn/huginn
+image: ghcr.io/huginn/huginn
 ```
 
 <strong>ARM/aarch64</strong>
 
 ```bash
 image: mjysci/huginn:arm32v7 
-#image: huginn/huginn
+#image: ghcr.io/huginn/huginn
 ```
 </br>
 </br>
