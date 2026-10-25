@@ -1,0 +1,70 @@
+name: Compose validation and smoke tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compose:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    env:
+      COMPOSE_PROJECT_NAME: huginn-ci-${{ github.run_id }}-${{ strategy.job-index }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Test configuration generator
+        run: python3 -m unittest discover -s tests -v
+      - name: Generate disposable configuration
+        run: |
+          python3 scripts/setup.py
+          python3 - <<'PY'
+          from pathlib import Path
+          for line in Path('.env').read_text().splitlines():
+              key, _, value = line.partition('=')
+              if value and key in {'MYSQL_ROOT_PASSWORD', 'MYSQL_PASSWORD', 'APP_SECRET_TOKEN', 'SEED_PASSWORD', 'INVITATION_CODE'}:
+                  print('::add-mask::' + value)
+          PY
+      - name: Validate scripts and required configuration
+        run: |
+          bash -n scripts/backup.sh
+          docker compose config --quiet
+          if env -u MYSQL_PASSWORD -u MYSQL_ROOT_PASSWORD -u APP_SECRET_TOKEN -u SEED_PASSWORD -u INVITATION_CODE docker compose --env-file /dev/null config --quiet 2>/dev/null; then
+            echo 'Missing credentials should fail validation'; exit 1
+          fi
+      - name: Start fresh deployment
+        run: docker compose up -d --wait --wait-timeout 600
+      - name: Check login and create persisted data
+        run: python3 tests/smoke.py prepare
+      - name: Recreate containers and check persistence
+        run: |
+          docker compose down
+          docker compose up -d --wait --wait-timeout 600
+          python3 tests/smoke.py verify
+      - name: Back up the database
+        run: bash scripts/backup.sh
+      - name: Restore into a fresh disposable volume
+        run: |
+          # Only this CI job's generated, isolated project is removed.
+          docker compose down --volumes
+          docker compose up -d --wait --wait-timeout 600
+          docker compose stop huginn
+          gzip -dc backups/*.sql.gz | docker compose exec -T mysql sh -c 'MYSQL_PWD="$MYSQL_PASSWORD" exec mysql -u"$MYSQL_USER" "$MYSQL_DATABASE"'
+          docker compose up -d --wait --wait-timeout 600
+          python3 tests/smoke.py verify
+      - name: Show service status on failure
+        if: failure()
+        run: docker compose ps --all
+      - name: Remove disposable test deployment
+        if: always()
+        run: docker compose down --volumes --remove-orphans
